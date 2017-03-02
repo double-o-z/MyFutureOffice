@@ -6,15 +6,15 @@
   "browser_action": {
     "default_icon": "icon_19.png",
     "default_popup": "popup.html",
-    "default_title": "WeWork"
+    "default_title": "WeWork Extension"
   },
   "content_scripts": [
     {
-      "matches": ["https://www.wework.com/l/*"],
+      "matches": ["*://*.wework.com/l/*"],
       "js": ["jquery-3.1.1.min.js", "contentScript.js"]
     }
   ],
   "permissions": [
-    "activeTab", "storage"
+    "storage"
   ]
 }

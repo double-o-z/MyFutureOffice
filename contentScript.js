@@ -1,19 +1,10 @@
-/**
- * Created by SHAI-LAPTOP on 3/2/2017.
- */
-
-window.onload = function (e) {
+$( document ).ready(function() {
     var exploreButtons = $("button > span:contains('Explore this location')").parent();
-    // console.log(exploreButtons);
-    // Make copies of found buttons
-    // Insert at bottom of parent div
-    // Make action on click - communicate with extension data (storage, localStorage..)
-
     var favoriteButtons = [];
     var fullHeart = '\u2665 ';
     var emptyHeart = '\u2661 ';
     var span_empty = $("<span>" + emptyHeart + "Favorite this location" + "</span>");
-    var span_full = $("<span>" + fullHeart + "Favorite this location" + "</span>");
+    var span_full = $("<span>" + fullHeart + "Favorited this location" + "</span>");
     var urlList = [];
     for (var i = 0; i < exploreButtons.length; i++){
         (function(i){
@@ -22,7 +13,7 @@ window.onload = function (e) {
             var newButton = button.clone();
             favoriteButtons.push(newButton);
 
-            var url = button.parent().parent().parent().attr('href');
+            var url = button.parent().parent().parent().prop('href');
             urlList.push(url);
 
             newButton.html(span_empty.clone());
@@ -30,10 +21,8 @@ window.onload = function (e) {
             newButton.click(function (e) {
                 e.preventDefault();
                 var target = $(e.target);
-
-                // var targetUrl = target.parentNode.parentNode.parentNode.href;
-                var targetUrl = target.parent().parent().parent().attr('href');
-                var parts = targetUrl.split("/")[2].split("--");
+                var targetUrl = target.parent().parent().parent().prop('href');
+                var parts = targetUrl.split("/")[4].split("--");
                 var locationName = parts[0];
                 var cityName = parts[1];
 
@@ -67,11 +56,11 @@ window.onload = function (e) {
        if (!$.isEmptyObject(items)){
            var allKeys = Object.keys(items);
            favoriteButtons.forEach(function (button) {
-               var href = button.parent().parent().parent().attr('href');
+               var href = button.parent().parent().parent().prop('href');
                if (allKeys.indexOf(href) > -1){
                    button.html(span_full.clone());
                }
            });
        }
     });
-};
+});
